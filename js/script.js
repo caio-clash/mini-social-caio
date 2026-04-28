@@ -1,36 +1,58 @@
 let likeCount = 0;
-let desCount = 0;
-
-let curtido = false; // flag booleana
+let dislikeCount = 0;
+let curtido = false;
 let descurtido = false;
 
-function curtir() {
 
- if(curtido == false){
+// === SERVICE(regras de negocio)
+function curtir() {
+  if (curtido == false){
     likeCount++;
     curtido = true;
     document.getElementById("likeCount").innerText = likeCount;
- }else{
+
+    if(descurtido == true){
+      dislikeCount--;
+      descurtido = false;
+      document.getElementById("dislikeCount").innerText = dislikeCount;
+
+    }
+
+  }else{
     likeCount--;
     curtido = false;
     document.getElementById("likeCount").innerText = likeCount;
- }
+  }
+
 }
 
-
-
- function deslike () {
-if(descurtido == false){
-    desCount++;
+function descurtir() {
+  if(descurtido == false){
+    dislikeCount++;
     descurtido = true;
-    document.getElementById("desCount").innerText = desCount;
- }else{
-    desCount--;
+    document.getElementById("dislikeCount").innerText = dislikeCount;
+
+    if(curtido == true){
+      likeCount--;
+      curtido = false;
+      document.getElementById("likeCount").innerText = likeCount;
+    }
+
+  }
+  else{
+    dislikeCount--;
     descurtido = false;
-    document.getElementById("desCount").innerText = desCount;
- }
-  
+    document.getElementById("dislikeCount").innerText = dislikeCount;
+  }
 }
 
-document.getElementById("likeBtn").addEventListener("click", curtir);
-document.getElementById("desBtn").addEventListener("click", deslike);
+//===CONTROLLER intermediacao evento/regra de negocio)
+
+function clicarcurtir(){
+   curtir;
+}
+
+
+//==  EVENTOS ===
+document.getElementById("likeBtn").addEventListener("click",clicarcurtir);
+document.getElementById("dislikeBtn").addEventListener("click", descurtir);
